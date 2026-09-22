@@ -15,8 +15,7 @@ wrong label is not graded.
 
 **Issue link**
 
-[The individual Path Review issue page. A link to the repository or the issue list
-does not satisfy this field.]
+[https://github.com/codepath/pathreview-ai301-fa26-s3/issues/9](https://github.com/codepath/pathreview-ai301-fa26-s3/issues/9)
 
 **Verdict output**
 
@@ -30,7 +29,28 @@ partial re-run costs about $0.20 — or run the skill on different candidates. O
 recording `reject` for the issue you chose earns no credit for this field.
 
 ```
-paste the output here, including the closing JSON block
+- lively_repo: pass. The newest commit on main is from 2026-09-16, six days ago. The limit is 30 days.
+- unclaimed: pass. The issue has no assignees, no linked PRs and no comments. None of the repo's PRs mention #9 or caching.
+- scope: pass. The issue names two files, rag/generator/review_generator.py and core/services/review_service.py, and both exist. It's labelled tier-2 ("Intermediate difficulty"), with an estimated effort of 4–7 hours.
+- policy: pass. docs/CONTRIBUTING.md and the PR template say nothing about AI, and the repo has no AI_POLICY.md or similar file. A repo that says nothing counts as a pass. Adding a cache doesn't go against anything in the repo's guidelines.
+- documented (preferred): pass. The body explains the problem (running the same review twice repeats the whole RAG pipeline). It also says what to build: a cache keyed on a hash of the portfolio's content.
+
+The rubric still accepts it, but three things are worth knowing before you claim it:
+- This is a tier-2 task of 4–7 hours, not a small starter fix. It covers two areas of the code (rag/ and core/).
+- The hard part will be deciding when a stored review goes out of date. The issue only asks you to key the cache on the portfolio's content. A stored review could go stale if the model or prompt changes, so settle how to handle that before you start.
+- Nobody has commented since the issue was opened 12 days ago. Your "no recent activity" rule only applies when a check comes back unclear, and none did.
+
+{
+  "item": "https://github.com/codepath/pathreview-ai301-fa26-s3/issues/9",
+  "checks": [
+    {"name": "lively_repo", "grade": "pass", "evidence": "Most recent default-branch commit 2026-09-16T21:50:18Z (6 days before 2026-09-22), within 30 days"},
+    {"name": "unclaimed", "grade": "pass", "evidence": "assignees: []; timeline shows only 4 'labeled' events, no linked/cross-referenced PRs; no repo PR mentions #9"},
+    {"name": "documented", "grade": "pass", "evidence": "Body: 'Add a cache keyed on the profile's content hash that returns the stored review if the portfolio hasn't changed.' plus relevant files listed"},
+    {"name": "scope", "grade": "pass", "evidence": "Two named files (rag/generator/review_generator.py, core/services/review_service.py), label tier-2, 'Estimated effort: 4–7 hours'"},
+    {"name": "policy", "grade": "pass", "evidence": "docs/CONTRIBUTING.md and PULL_REQUEST_TEMPLATE.md contain no AI restrictions; no AI_POLICY file in repo; caching request conflicts with no stated policy"}
+  ],
+  "verdict": "accept"
+}
 ```
 
 ---
@@ -41,27 +61,25 @@ Quote source text directly in each field below. Paraphrase does not satisfy them
 
 **Run history**
 
-[The agreement score of each run you did, in order. A single run is a complete answer if
-only one run occurred. **The last score in your list must match the agreement line in the
-`eval-run.txt` you committed** — that file is the record of your final run.]
+14/20, 16/20, 18/20
 
 **Issue analysis**
 
-[One scored issue, identified by id (`issue-01` through `issue-20`; the `calib-`
-issues are not scored). State your rubric's decision, the gold label, and the
-reasoning that produced your rubric's result.]
+issue-15 |   reject | accept | NO | graded accept
+
+
+
+My skill graded issue-15 as accept, while the gold-label says it should be a reject. I assume this is due to the scope of the problem, which the gold-label considers too wide, but my skill thinks is reasonable.
 
 **Check rationale**
 
-[One check from the `rubric.md` uploaded to `tools/issue-select/`, quoted as it is
-currently written, with the reasoning behind its current form.]
+```markdown
+| lively_repo | Last 5 default-branch commit dates (repo-facts block) | Most recent commit is within 30 days | required |
+```
 
 **Trade-offs**
 
-[What the quoted check gives up. Any one of these is a complete answer: an issue whose
-result it changes, a canary you re-ran with `--only`, a case you accept it will miss, or a
-stated reason nothing changed elsewhere. "Nothing changed, and here is how I know" earns
-the point in full when the reason follows.]
+Valid projects that have simply remain untouched for a while may be rejected, even if the project is still active in ways other than commit history (eg. active users)
 
 ---
 
@@ -76,9 +94,16 @@ This is also the basis for the claim comment you write in Unit 2.
 [Answer all three:
 
 1. The issue's fit to your interests and to the time available.
-2. What the verdict identified correctly, and what you weighed that the rubric could
-   not.
-3. The anticipated difficulty in claiming it.]
+
+I'm interested in optimizing a RAG system, and creating a cache layer is a great way to do that.
+
+1. What the verdict identified correctly, and what you weighed that the rubric could
+
+The verdict correctly identified that the repo was live, the scope was narrow enough, and it was reasonable to complete. I also weighed that it was within my capabilities
+
+1. The anticipated difficulty in claiming it.
+
+This is listed as a 7-9 hour job, which may be more time than expected.
 
 ---
 
