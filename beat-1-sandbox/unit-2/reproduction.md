@@ -15,8 +15,7 @@ label is not graded.
 
 **GitHub username**
 
-[Your GitHub username, exactly as it appears on your profile — no `@`, no profile URL. Your
-comments upstream are identified by this name.]
+dRamachandran7
 
 ---
 
@@ -24,16 +23,11 @@ comments upstream are identified by this name.]
 
 **Claim comment**
 
-[Link to the comment where you claimed the issue. Use the comment's own permalink, not the
-issue page on its own. **Then paste the text of that comment underneath the link** — the
-pasted text is what this field is graded on, so copy across what you actually posted.]
+[https://github.com/codepath/pathreview-ai301-fa26-s3/issues/9#issuecomment-5893114540](https://github.com/codepath/pathreview-ai301-fa26-s3/issues/9#issuecomment-5893114540)
 
 **Reproduction comment**
 
-[Link to the comment where you posted your reproduction. It must record the environment
-(OS, relevant versions, code state), steps a stranger could follow, and what you observed.
-**Then paste the text of that comment underneath the link** — the pasted text is what this
-field is graded on, so copy across what you actually posted.]
+[https://github.com/codepath/pathreview-ai301-fa26-s3/issues/9#issuecomment-5893384507](https://github.com/codepath/pathreview-ai301-fa26-s3/issues/9#issuecomment-5893384507)
 
 ## Eval iterations
 
@@ -42,28 +36,27 @@ fields.
 
 **Run history**
 
-[The agreement score of each run you did, in order. A single run is a complete answer if
-only one run occurred. **The last score in your list must match the agreement line in the
-`eval-run.txt` you committed** — that file is the record of your final run.]
+16/20, 19/20
 
 **Package analysis**
 
-[Pick one scored package (`pkg-01` through `pkg-20` — the four `calib-` packages are never
-scored). Name it by id, say what your rubric decided and what the gold label said, and
-explain why your rubric read it that way.]
+item    gold    verdict  agree  note
+
+pkg-01  accept  accept   yes    
+
+It was scored as an accept since it passed the necessary checks, such as the steps to reproduce it, and clear documentation.
 
 **Check rationale**
 
-[Quote one check from the `rubric.md` you uploaded to `tools/repro-check/`, exactly as it reads now.
-Then say why it reads that way — what you revised to get there, or what you rejected in
-favour of it.]
+```markdown
+| documented | Issue body | Body has expected vs. actual behavior,  repro step, or a clear description of the feature to add not just a title | preferred |
+```
+
+I had this check to make sure that the issue was well documented, and would therefore be more productive to work off of. I had to add the expected vs. actual behavior check.
 
 **Trade-offs**
 
-[Every check gives something up. Any one of these is a complete answer: a package whose
-result it changes, a canary you re-ran with `--only`, a case you accept it will miss, or a
-stated reason nothing changed elsewhere. "Nothing changed, and here is how I know" earns
-the point in full when the reason follows.]
+This check fails to evaluate issues that call for a new feature as well.
 
 ---
 
