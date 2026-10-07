@@ -130,3 +130,29 @@ doesn't exist there.
   `current_user` today. The lookup is scoped to `profile_id`, so a hit can't
   return another profile's review. I'm not adding an ownership check here,
   because it's a separate issue.
+
+## Deviations
+
+The built change followed the plan: the five numbered steps landed as written,
+in `c41c030`, in the files the plan named, and the only non-test additions are
+the ones steps 1-5 describe. `make lint` ("All checks passed!") and
+`make typecheck` ("Success: no issues found in 76 source files") are clean, and
+`pytest tests/unit/test_review_service.py -q` reports `19 passed, 13 xfailed`.
+The 13 `xfail`s are the pre-existing #65 markers the plan put out of scope.
+
+Two things worth recording:
+
+- **The verification tripped on the stand-in, not the fix.** The test plan
+  predicted that `FakeSession.execute` would have to answer the new cache
+  lookup, and the first "after" run was done before that change was made. It
+  printed two review ids and
+  `pipeline stage runs: {'ingestion': 2, 'agent': 2, 'rag': 2}` — byte-for-byte
+  the pre-fix state — because the cache query fell into the review-by-id branch
+  and missed every time. The fix was not at fault; the harness was. The run in
+  `plan-and-implement.md` is the re-run with the stand-in updated, and it shows
+  one id and one run per stage. Lesson kept: read the output against the
+  expected result you wrote down before attaching it to anything.
+- **CI is not yet evidence.** The plan's check line asked for "all five CI jobs
+  green". Those jobs run on a pull request, which is Unit 4, so what is
+  verified here is the local equivalent: lint, typecheck and the unit suite
+  above. The PR will carry the CI evidence.
