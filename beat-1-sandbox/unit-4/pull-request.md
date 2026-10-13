@@ -15,15 +15,11 @@ label is not graded.
 
 **Pull request**
 
-[Link to the pull request you opened. It must be the pull request's own page on the Path
-Review repo, not your fork's branch page.]
+https://github.com/codepath/pathreview-ai301-fa26-s3/pull/195
 
 **Branch**
 
-[The name of the branch the pull request comes from, exactly as it appears in your fork.
-The naming shape is a type prefix, then the issue number, then a short description. **The
-issue number in the branch name must be the number of the issue the pull request fixes** —
-a name carrying any other number does not satisfy this field.]
+`fix/9-review-content-hash-cache` (closes #9)
 
 ## Eval iterations
 
@@ -32,28 +28,35 @@ fields.
 
 **Run history**
 
-[The agreement score of each run you did, in order. A single run is a complete answer if
-only one run occurred. **The last score in your list must match the agreement line in the
-`eval-run.txt` you committed** — that file is the record of your final run.]
+First run: 16/20
+
+Final run (the one saved to `eval-run.txt`): `agreement: 19/20 scored items  (bar: 18/20: PASS)`
 
 **Package analysis**
 
-[Pick one scored package (`pkg-01` through `pkg-20` — the four `calib-` packages are never
-scored). Name it by id, say what your rubric decided and what the gold label said, and
-explain why your rubric read it that way.]
+**pkg-11** (category `clear-accept`). My rubric decided **reject**; the gold label is **accept**.
+The eval run records the deciding check: `pkg-11  clear-accept  accept  reject   NO     failed: reported-changes-in-diff`.
+
+Why: `reported-changes-in-diff` fails on "a single reported change the diff does not contain  
+or contradicts". My rubric was too strict about naming every single change in the diff.
 
 **Check rationale**
 
-[Quote one check from the `rubric.md` you uploaded to `tools/pr-precheck/`, exactly as it reads now.
-Then say why it reads that way — what you revised to get there, or what you rejected in
-favour of it.]
+> | how-tested | The test-evidence section read against the plan's test plan and the issue's repro. | (a) The evidence re-runs the issue's repro (the plan's primary failing case) on the branch and shows an observable before AND after (output, exit code, rendered result) on the changed code path; AND (b) every other case the test plan names (controls, secondary cases) is reported with its outcome. A stated outcome ("controls unchanged", "same-key redefine prints the warning") is enough for these; output is not required. Fails on "tests pass", "works on my machine", or "verified locally" with no observable repro before/after; on evidence that runs only a control or an unchanged path instead of the repro; or on any test-plan case the evidence never mentions. | required |
+
+
 
 **Trade-offs**
 
-[Every check gives something up. Any one of these is a complete answer: a package whose
-result it changes, a canary you re-ran with `--only`, a case you accept it will miss, or a
-stated reason nothing changed elsewhere. "Nothing changed, and here is how I know" earns
-the point in full when the reason follows.]
+`reported-changes-in-diff` costs a clear accept. In the final run it was the only check
+that disagreed with gold, flipping **pkg-11** (gold `accept`) to `reject`. Every other
+category scored full marks (`not-tested 4/4  silent-drift 4/4  standards-wall 2/2
+unreviewable 3/3`), and the silent-drift packages depend on this check catching claims
+the diff doesn't back up. I accept that a strict reading will sometimes hold an honest PR
+whose claim the grader can't match to a hunk. Loosening it risks letting silent-drift
+packages through, and the run still clears the bar at 19/20 (bar 18/20).
+
+
 
 ---
 
